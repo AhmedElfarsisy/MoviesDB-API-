@@ -1,6 +1,7 @@
 package com.eng.elfarsisy.moviesdb.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.eng.elfarsisy.moviesdb.DetailsActivity;
 import com.eng.elfarsisy.moviesdb.R;
 import com.eng.elfarsisy.moviesdb.model.Result;
 
@@ -59,6 +61,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             moviePoster = itemView.findViewById(R.id.movieImage);
             movieName = itemView.findViewById(R.id.movieName);
             movieLanguage = itemView.findViewById(R.id.movieLanguage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra("movietitle", moviesResualt.get(position).getTitle());
+                    intent.putExtra("movieorigintitle", moviesResualt.get(position).getOriginalTitle());
+                    intent.putExtra("movie_poster", moviesResualt.get(position).getPosterPath());
+                    intent.putExtra("movieoverview", moviesResualt.get(position).getOverview());
+                    intent.putExtra("movielanguage", moviesResualt.get(position).getOriginalLanguage());
+                    intent.putExtra("moviepopularity", moviesResualt.get(position).getPopularity());
+                    intent.putExtra("movievote", moviesResualt.get(position).getVoteAverage());
+                    context.startActivity(intent);
+                }
+            });
+
         }
     }
 }
